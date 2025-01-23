@@ -1,0 +1,17 @@
+{% extends "home.html" %}
+{% block title %}Datos de usuario{% endblock %}
+{% block content %}
+<h2>Datos de usuario</h2>
+<p>Nombre: {{ usuario.nombre }}</p>
+<p>Correo: {{ usuario.correo }}</p>
+<p>Contraseña: {{ usuario.contrasena }}</p>
+{% if admin %}
+<p>Administrador: Sí</p>
+<form action="{{ url_for('eliminar_usuario', usuario_id=usuario.id) }}" method="post" style="display:inline;">
+    <button type="submit">Eliminar</button>
+</form>
+<button href="{{ url_for('editar_usuario', usuario_id=usuario.id) }}">Editar</button>
+{% else %}
+<p>Administrador: No</p>
+{% endif %}
+{% endblock %}

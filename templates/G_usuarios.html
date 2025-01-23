@@ -1,0 +1,50 @@
+{% extends "home.html" %}
+{% block title %}Gestor de Usuarios{% endblock %}
+{% block content %}
+<h2>Gestor de Usuarios</h2>
+{% if admin %}
+    <p>Eres administrador. Puedes Editar y crear Usuarios.</p>
+{% endif %}
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Administrador</th>
+        <th>Acciones</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>{% if usuario.administrador %}Sí{% else %}No{% endif %}</td>
+        <td>
+            <a href="{{ url_for('ver_usuario', usuario_id=usuario.id) }}"><button>Ver</button></a>
+            {% if admin %}
+            <a href="{{ url_for('editar_usuario', usuario_id=usuario.id) }}"><button>Editar</button></a>
+            <form action="{{ url_for('eliminar_usuario', usuario_id=usuario.id) }}" method="post" style="display:inline;">
+            <button type="submit">Eliminar</button>
+            </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% if admin %}
+    <!-- Formulario para crear un nuevo usuario -->
+    <form id="nuevoUsuarioForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <br>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+        <br>
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+        <br>
+        <button type="submit">Crear Usuario</button>
+    </form>
+    <script src="{{ url_for('static', filename='js/C_Usuarios.js') }}"></script>
+{% else %}
+    <p>Eres un usuario corriente. No puedes gestionar usuarios.<br> Inicia sesión como administrador</p>
+{% endif %}
+{% endblock %}

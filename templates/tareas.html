@@ -1,0 +1,54 @@
+{% extends "home.html" %}
+{% block title %}Gestión de Tareas{% endblock %}
+{% block content %}
+<h2>Gestión de Tareas</h2>
+{% if admin %}
+    <p>Eres administrador. Puedes ver todas las tareas.</p>
+{% else %}
+    <p>Eres un usuario corriente. Solo puedes ver, crear y editar tus propias tareas.</p>
+{% endif %}
+<!-- visualizacion de las tareas -->
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha de Creación</th>
+            <th>Creador</th>
+            <th>ID Usuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarea in tareas %}
+        <tr>
+            <td>{{ tarea.nombre }}</td>
+            <td>{{ tarea.descripcion }}</td>
+            <td>{{ tarea.fecha_creacion }}</td>
+            <td>{{ tarea.creador }}</td>
+            <td>{{ tarea.id_usuario }}</td>
+            <td>
+                <a href="{{ url_for('ver_tarea', tarea_id=tarea.id) }}"><button>Ver</button></a>
+                {% if admin or tarea.id_usuario == session['user_id'] %}
+                <a href="{{ url_for('editar_tarea', tarea_id=tarea.id) }}"><button>Editar</button></a>
+                <form action="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}" method="post" style="display:inline;">
+                    <button type="submit">Eliminar</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- Recogida de datos activa -->
+<form id="nuevaTareaForm">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+    <br>
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="descripcion" required>
+    <br>
+    <button type="submit">Crear Tarea</button>
+</form>
+<script src="{{ url_for('static', filename='js/C_Tareas.js') }}"></script>
+{% endblock %}

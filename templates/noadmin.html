@@ -1,0 +1,9 @@
+{% extends "home.html" %}
+{% block title %}Necesitas ser administrador{% endblock %}
+{% block content %}
+<h2>Necesitas ser administrador</h2>
+<p>Esta página solo puede ser vista por administradores.</p>
+<a href="/login"><button>Ir al Login</button></a>
+<button onclick="window.history.back()">Volver</button>
+<script src="../static/js/popup.js"></script>
+{% endblock %}

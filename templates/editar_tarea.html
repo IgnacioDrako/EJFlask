@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+{% block title %}Editar Tareas{% endblock %}
+{% block content %}
+<h2>Editar Tarea</h2>
+<form action="{{ url_for('editar_tarea', tarea_id=tarea.id) }}" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ tarea.nombre }}" required>
+    <br>
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="descripcion" value="{{ tarea.descripcion }}" required>
+    <br>
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "home.html" %}
+{% block title %}Editar Usuario{% endblock %}
+{% block content %}
+<h2>Editar Usuario</h2>
+<form action="{{ url_for('editar_usuario', usuario_id=usuario.id) }}" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+    <br>
+    <label for="correo">Correo:</label>
+    <input type="text" id="correo" name="correo" value="{{ usuario.correo }}" required>
+    <br>
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" id="contrasena" name="contrasena" value="{{ usuario.contrasena }}" required>
+    <br>
+    <label for="administrador">Administrador:</label>
+    <input type="checkbox" id="administrador" name="administrador" {% if usuario.administrador %}checked{% endif %}>
+    <br>
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

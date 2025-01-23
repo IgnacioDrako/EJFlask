@@ -1,0 +1,13 @@
+{% extends "home.html" %}
+{% block title %}ver Tareas{% endblock %}
+{% block content %}
+<body>
+    <h1>Detalles de la Tarea</h1>
+    <p><strong>ID:</strong> {{ tarea.id }}</p>
+    <p><strong>Nombre:</strong> {{ tarea.nombre }}</p>
+    <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
+    <p><strong>Fecha de Creación:</strong> {{ tarea.fecha_creacion }}</p>
+    <p><strong>Creador:</strong> {{ tarea.creador }}</p>
+    <a href="{{ url_for('tareas') }}"><button>Volver a la lista de tareas</button></a>
+</body>
+{% endblock %}
